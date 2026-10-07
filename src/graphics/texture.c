@@ -12,7 +12,7 @@ Texture Load_Texture(const char *filepath)
     // Creating a raw pointer for image data
     unsigned char *data = NULL;
 
-    // Storing the image's width, height, channels in the texture
+    // Storing and Loading the image's width, height, channels in the texture as RGBA (4 channels)
     data = stbi_load(filepath, &texture.width, &texture.height, &texture.channels, 4);
 
     // Error checking if the image is loaded
@@ -22,8 +22,24 @@ Texture Load_Texture(const char *filepath)
         return texture;
     }
 
+    // We are forcing 4 channels: R, G, B, A
+    texture.channels = 4;
+
     // Allocating image pixels array in memory
     texture.pixels = (unsigned int *)malloc(sizeof(unsigned int) * texture.width * texture.height);
+
+    // Checking if allocation of pixels failed or succeeded
+    if (texture.pixels == NULL)
+    {
+        printf("Texture pixel allocation failed! Check texture.c file!\n");
+
+        stbi_image_free(data);
+
+        texture.width = 0;
+        texture.height = 0;
+
+        return texture;
+    }
 
     // Going through every pixel or traversing the array of thr raw image data
     for (int i = 0; i < texture.width * texture.height; i++)
@@ -35,7 +51,13 @@ Texture Load_Texture(const char *filepath)
         unsigned char a = data[i * 4 + 3];
 
         // Converting them into a single 32-bit integer (0x00RRGGBB) currently nto storing the alpha value add it later if you want
-        texture.pixels[i] = (a == 0) ? 0x000000 : (r << 16) | (g << 8) | b;
+        // texture.pixels[i] = (a == 0) ? 0x000000 : (r << 16) | (g << 8) | b;
+
+        texture.pixels[i] =
+            ((unsigned int)a << 24) |
+            ((unsigned int)r << 16) |
+            ((unsigned int)g << 8)  |
+            (unsigned int)b;
     }
 
     // Free stb's temporary byte array memory

@@ -42,10 +42,57 @@ EngineClass CreateEngine(const char *title, int width, int height)
     return engine;
 }
 
+EngineClass CreateEngineForSpriteEditor(const char *title, int windowWidth, int windowHeight, int rendererWidth, int rendererHeight)
+{
+    EngineClass engine = {0};
+
+    // Creating the game window
+    // Error Checking for game window creation
+    if (!BootWindow(title, windowWidth, windowHeight, &engine.hwnd, &engine.hdc))
+    {
+        printf("Engine for Sprite Editor Window creation failed check window.h and window.c\n");
+        engine.isRunning = 0;
+        return engine;
+    }
+
+    // CREATING PIXEL_BUFFER HERE BEFORE CREATING THE RENDERER
+
+    engine.bitmap_pixel_buffer = CreatePixelBuffer(rendererWidth, rendererHeight);
+
+    if (engine.bitmap_pixel_buffer == NULL)
+    {
+        printf("Pixel buffer creation failed! Check bitmap.h and bitmap.c file\n");
+        engine.isRunning = 0;
+        return engine;
+    }
+
+    Create_BitMap(engine.hwnd, rendererWidth, rendererHeight);
+
+    // Creating the renderer and passing the pixel_buffer to send drawing to window
+    engine.renderer = CreateRenderer(engine.bitmap_pixel_buffer, rendererWidth, rendererHeight);
+
+    engine.isRunning = 1;
+    engine.OnUserCreateGame = NULL;
+    engine.OnUserUpdateGame = NULL;
+    engine.OnUserDestroyGame = NULL;
+
+    return engine;
+}
+
 void StartEngine(EngineClass *engine)
 {
     if (engine == NULL)
         return;
+
+    // Initialize the game engine before starting the thread
+    if (engine->OnUserCreateGame != NULL)
+    {
+        if (!engine->OnUserCreateGame(engine))
+        {
+            engine->isRunning = 0;
+            return;
+        }
+    }
 
     engine->hThread = createThread(engine);
 

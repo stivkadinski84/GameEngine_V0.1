@@ -51,3 +51,15 @@ void DrawTexture(Renderer *renderer, int x, int y, Texture *texture)
         }
     }
 }
+
+// BUTTONS DRAWING ROUTINES
+// void DrawButton(Renderer *renderer, const ButtonType1 *button1, uint32_t color)
+// {
+//     for (int y = button1->y; y < button1->y + button1->height; y++)
+//     {
+//         for (int x = button1->x; x < button1->x + button1->width; x++)
+//         {
+//             Draw(renderer, x, y, color);
+//         }
+//     }
+// }

@@ -15,3 +15,8 @@ void Create_SpriteEngine(Sprite_Engine *sprite_engine, int w, int h)
         sprite_engine->Colors[i] = FG_BLACK;
     }
 }
+
+int Load_Sprite(Sprite_Engine *sprite_engine, const wchar_t *file)
+{
+    
+}

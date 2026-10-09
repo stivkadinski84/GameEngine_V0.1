@@ -37,6 +37,7 @@ typedef struct EngineClass
 } EngineClass;
 
 EngineClass CreateEngine(const char *title, int width, int height);
+EngineClass CreateEngineForSpriteEditor(const char *title, int windowWidth, int windowHeight, int rendererWidth, int rendererHeight);
 void StartEngine(EngineClass *engine);
 void DestroyEngine(EngineClass *engine);
 

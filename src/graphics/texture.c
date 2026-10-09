@@ -56,7 +56,7 @@ Texture Load_Texture(const char *filepath)
         texture.pixels[i] =
             ((unsigned int)a << 24) |
             ((unsigned int)r << 16) |
-            ((unsigned int)g << 8)  |
+            ((unsigned int)g << 8) |
             (unsigned int)b;
     }
 
@@ -75,6 +75,10 @@ void Free_Texture(Texture *texture)
         // Freeing the pixels memory allocated and setting the texture pixels pointer to nothing or NULL
         free(texture->pixels);
         texture->pixels = NULL;
+
+        texture->width = 0;
+        texture->height = 0;
+        texture->channels = 0;
     }
 }
 

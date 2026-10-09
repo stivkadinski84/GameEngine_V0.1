@@ -1,7 +1,7 @@
 #ifndef MAP_MAKER_H
 #define MAP_MAKER_H
 #include <stdint.h>
-#include "texture.h"
+#include "graphics/texture.h"
 
 // Map model change this or upgrade it if you need more complex map/level creation
 typedef struct Map_Level

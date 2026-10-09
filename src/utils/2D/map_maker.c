@@ -1,5 +1,5 @@
 #include "utils/2D/map_maker.h"
-#include "texture.h"
+#include "graphics/texture.h"
 
 // Draw the map here using symbols and connect the symbols with the right texture
 // Example:

@@ -39,6 +39,13 @@ void DrawTexture(Renderer *renderer, int x, int y, Texture *texture)
             // And finalyl we use those variables to render the texture as a color format onto the rendering screen as a texture
             if (screenX >= 0 && screenX < renderer->width && screenY >= 0 && screenY < renderer->height)
             {
+                // Extract the alpha byte from 0xAARRGGBB.
+                uint32_t alpha = (color >> 24) & 0xFF;
+
+                // Skip fully transparent pixels.
+                if (alpha == 0)
+                    continue;
+
                 renderer->renderingSreen[screenY * renderer->width + screenX] = color;
             }
         }

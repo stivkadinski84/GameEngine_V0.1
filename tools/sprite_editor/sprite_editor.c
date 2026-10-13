@@ -15,38 +15,6 @@ int Sprite_Editor_OnUser_Create(EngineClass *engine)
         return 0;
     }
 
-    // HWND side_panel = CreateWindowExW(
-    //     0,
-    //     L"STATIC",
-    //     L"",
-    //     WS_CHILD | WS_VISIBLE | SS_WHITERECT,
-    //     800, 0, 200, 600,
-    //     engine->hwnd,
-    //     NULL,
-    //     GetModuleHandleW(NULL),
-    //     NULL);
-
-    // if (side_panel == NULL)
-    // {
-    //     return 0;
-    // }
-
-    // HWND open_button = CreateWindowExW(
-    //     0,
-    //     L"BUTTON",
-    //     L"Open Sprite",
-    //     WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
-    //     10, 40, 180, 35,
-    //     side_panel,
-    //     (HMENU)(INT_PTR)1001,
-    //     GetModuleHandleW(NULL),
-    //     NULL);
-
-    // if (open_button == NULL)
-    // {
-    //     return 0;
-    // }
-
     return 1;
 }
 
